@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 import time
 
 
@@ -36,7 +37,10 @@ class Currency:
         return f"{value} {self.currencies[0]} --> {fields[1].get_attribute('value')} {self.currencies[1]}"
 
 
-with webdriver.Firefox() as browser:
+firefox_options = Options()
+firefox_options.add_argument('--headless')
+
+with webdriver.Firefox(options=firefox_options) as browser:
     browser.get('https://minfin.com.ua/currency/converter/')
 
     obj = Currency('USD', 'EUR')
